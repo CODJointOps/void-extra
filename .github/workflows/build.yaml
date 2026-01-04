@@ -68,15 +68,15 @@ jobs:
                 removed_pkgs=""
             else
                 changed_pkgs=$(git diff --name-only "$base" "$tip" --diff-filter=AM -- 'srcpkgs/*/template' \
+                    | grep -v '^srcpkgs/zen-browser/' \
                     | cut -d/ -f2 \
-                    | grep -v '^zen-browser$' \
                     | sort -u \
                     | tr '\n' ' ')
                 
                 removed_pkgs=$(git diff --name-status "$base" "$tip" -- 'srcpkgs/*/template' \
                     | awk '$1=="D"{print $2}' \
+                    | grep -v '^srcpkgs/zen-browser/' \
                     | cut -d/ -f2 \
-                    | grep -v '^zen-browser$' \
                     | sort -u \
                     | tr '\n' ' ')
             fi
