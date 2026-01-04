@@ -4,7 +4,7 @@ version=1.17.15b
 revision=1
 archs="x86_64 aarch64"
 hostmakedepends="curl xz"
-depends="desktop-file-utils hicolor-icon-theme libnotify libavcodec xdg-utils"
+depends="desktop-file-utils hicolor-icon-theme libnotify libavcodec virtual?font:emoji xdg-utils"
 short_desc="Welcome to a calmer internet"
 maintainer="Encoded14 <linusken@tuta.io>"
 license="MPL-2.0"
@@ -41,6 +41,9 @@ do_install() {
 		install -d ${DESTDIR}/usr/share/icons/hicolor/${size}x${size}/apps
 		vinstall browser/chrome/icons/default/default${size}.png 0644 usr/share/icons/hicolor/${size}x${size}/apps zen.png
 	done
+
+    # Trying to get file under 100MB so github doesnt complain
+    rm -f "${DESTDIR}/opt/${pkgname}/fonts/TwemojiMozilla.ttf"
 
 	ln -Ts /usr/share/hunspell "${DESTDIR}/opt/${pkgname}/dictionaries"
 	ln -Ts /usr/share/hyphen "${DESTDIR}/opt/${pkgname}/hyphenation"
